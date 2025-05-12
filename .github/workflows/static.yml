@@ -24,17 +24,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Pages
+      - name: Configure Pages
         uses: actions/configure-pages@v5
-        with:
-          # Explicitly disable Jekyll
-          static_site_generator: none
+        # REMOVE the static_site_generator parameter entirely
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Deploy root directory contents
-          path: .
+          path: .  # Deploy all files in root directory
+          # Add this to explicitly disable Jekyll processing:
+          enable_jekyll: false
 
       - name: Deploy to GitHub Pages
         id: deployment
