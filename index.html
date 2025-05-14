@@ -154,8 +154,7 @@
     </div>
   </section>
       <section>
-        <h1>Medical NLP Resources and Tools for Ultrasound Entity Recognition</h1>
-        <p>This page provides a summary of various resources, APIs, and models for Named Entity Recognition (NER) in medical texts, especially focused on ultrasound data. These resources include medical ontologies, NLP models, and specific datasets for efficient and accurate entity extraction from medical reports.</p>
+        <h1>Ultrasound Entity Recognition</h1>
 <section class="section">
   <div class="container is-max-desktop">
     <h2 class="title is-3 has-text-centered">Medical-NER Findings & Triplet Extraction Flow</h2>
@@ -234,6 +233,114 @@
       </ul>
 
       <p>Let me know which part you'd like to explore next—definition harvesting, CUI mapping, or embedding architecture!</p>
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">1️⃣ Quick Tour of Annotation Options</h2>
+    <div class="content">
+      <p>When building a Named Entity Recognition (NER) system, choosing the right annotation tool is crucial for both efficiency and accuracy. Here are some top options:</p>
+      
+      <table class="table is-hoverable is-fullwidth">
+        <thead>
+          <tr>
+            <th>Tool</th>
+            <th>What it is</th>
+            <th>Stand-out Strengths</th>
+            <th>Things to Know / Limits</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Label Studio (open-source, MIT)</td>
+            <td>A browser-based annotation server for sequence-labeling, span-labeling, bounding-box, audio, etc.</td>
+            <td>
+              <ul>
+                <li>Free community edition</li>
+                <li>Team-friendly: add users, track contributions</li>
+                <li>Rich import/export options (JSON, CSV, COCO, spaCy, BIO)</li>
+                <li>Plug-in system for model pre-annotations</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li>Requires hosting a Postgres database and web server</li>
+                <li>No built-in active learning; needs custom setup</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>Prodigy (commercial, by spaCy team)</td>
+            <td>A lightweight, scriptable webapp launched via a Python script for NER annotation.</td>
+            <td>
+              <ul>
+                <li>Highly scriptable; every action is a Python one-liner</li>
+                <li>Tight integration with spaCy</li>
+                <li>Active-learning queues to focus on uncertain examples</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li>Paid license (~$390 per seat, no SaaS)</li>
+                <li>One user per license; requires shared DB for multi-annotator work</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>Plain JSON / Text Editor</td>
+            <td>Use any text editor (VS Code, Sublime, Excel) to manually edit exported NER labels.</td>
+            <td>
+              <ul>
+                <li>Zero setup, 100% free</li>
+                <li>Good for correcting small sets (50–100 mistakes)</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li>Tedious and error-prone for long sentences</li>
+                <li>No sentence context visible, so harder to verify spans</li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4 class="subtitle is-5">Recommended Path for Ultrasound Reports</h4>
+      <p>The following steps are recommended for effectively annotating ultrasound reports:</p>
+      <ol>
+        <li>Generate weak labels automatically using <code>pseudo_label.py</code>.</li>
+        <li>Import the labels into Label Studio using the "Sequence Labeling" template and BIO format.</li>
+        <li>Have a radiologist (or yourself) correct ~300 sentences to clean the model’s worst mistakes.</li>
+        <li>Export the corrected data to spaCy or BIO format and fine-tune the NER model for one epoch.</li>
+        <li>(Optional) Switch to Prodigy for active learning if you want a continuous feedback loop.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Domain-Adaptive Pretraining (MLM before NER)</h2>
+    <div class="content">
+      <p>Large-scale NLP systems like BERT use domain-adaptive pretraining (DAPT) to better capture the language of specific domains like ultrasound reports. Here’s the process:</p>
+      
+      <h3 class="subtitle is-4">DAPT / MLM (Masked Language Modeling)</h3>
+      <p>Pre-train BERT using raw ultrasound report text, teaching the model the language of ultrasound (e.g., abbreviations, anatomical terms, measurement patterns) without requiring labels.</p>
+      <p><strong>Inputs:</strong> Raw report text.</p>
+      <p><strong>What you train:</strong> A masked-language-model head (same as original BERT). The whole network is optimized (or LoRA adapters are used if VRAM-limited).</p>
+      <p><strong>Cost (time/VRAM):</strong> Light. With LoRA and 8-bit precision, a 3070 4GB GPU can complete 3 epochs over ~50k sentences in under 1 hour.</p>
+
+      <h3 class="subtitle is-4">(Optional) TAPT (Task-Adaptive Pretraining)</h3>
+      <p>TAPT involves a second quick pass of pretraining using only the text that will appear in your labelled split. This can improve final NER results if labels are very small.</p>
+      <p><strong>Inputs:</strong> Sentences you plan to label.</p>
+      <p><strong>Cost:</strong> Minimal (minutes).</p>
+
+      <h3 class="subtitle is-4">Fine-tune NER</h3>
+      <p>Fine-tune the BERT model to output BIO tags based on the weak labels, which can be corrected by annotators.</p>
+      <p><strong>Inputs:</strong> Weak + corrected labels (even just 1-2k sentences is enough).</p>
+      <p><strong>What you train:</strong> The classifier head and a subset of encoder weights (LoRA can be used here for efficiency).</p>
+      <p><strong>Cost:</strong> Fast (minutes on a laptop).</p>
     </div>
   </div>
 </section>
