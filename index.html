@@ -402,6 +402,63 @@
             </tbody>
         </table>
     </section>
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Specialized Resources for Ultrasound Report Annotation</h2>
+    <div class="content">
+      <table class="table is-hoverable is-fullwidth">
+        <thead>
+          <tr>
+            <th>Vocabulary</th>
+            <th>File(s) You Need</th>
+            <th>Direct Download Link</th>
+            <th>License Note</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>RadLex 4.2</strong> (radiology observations + anatomy)</td>
+            <td>RadLex_OWL4.2.zip (contains radlex.owl)</td>
+            <td><a href="https://radlex.org/download/RadLex_OWL4.2.zip" target="_blank">RadLex 4.2 Download</a></td>
+            <td>Free for research (RSNA license prompt)</td>
+          </tr>
+          <tr>
+            <td><strong>ICD-10-CM FY-2025</strong> (disease codes)</td>
+            <td>Code-descriptions-April-2025.zip – CSV of ICD-10-CM codes & text <br> icd10cm-table-index-April-2025.zip – Alphabetical index</td>
+            <td><a href="https://ftp.cdc.gov/pub/Health_Statistics/NCHS/Publications/ICD10CM/2025-Update/Code-desciptions-April-2025.zip" target="_blank">ICD-10-CM FY 2025 Codes</a> <br> <a href="https://ftp.cdc.gov/pub/Health_Statistics/NCHS/Publications/ICD10CM/2025-Update/icd10cm-table-index-April-2025.zip" target="_blank">ICD-10-CM Index</a></td>
+            <td>Public-domain</td>
+          </tr>
+          <tr>
+            <td><strong>SNOMED CT INT 2024-07</strong> (findings, qualifiers)</td>
+            <td>SnomedCT_InternationalRF2_production.zip</td>
+            <td><a href="https://www.nlm.nih.gov/research/umls/Snomed/SNOMED_CT_User_Guide_20080731.pdf" target="_blank">SNOMED CT Overview</a></td>
+            <td>Non-commercial research allowed</td>
+          </tr>
+          <tr>
+            <td><strong>MIDO</strong> (medical-imaging ontology, ultrasound terms)</td>
+            <td>mido.owl via BioPortal</td>
+            <td><a href="https://bioportal.bioontology.org/ontologies/MIDO?download_file=true" target="_blank">MIDO Download</a></td>
+            <td>CC-BY</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 class="subtitle is-4">Other Resources</h3>
+      <ul>
+        <li><strong>BI-RADS (Breast Imaging-Reporting and Data System):</strong> A standardized system for reporting breast imaging findings, including those from ultrasound. Available from the American College of Radiology.</li>
+        <li><strong>LI-RADS (Liver Imaging Reporting and Data System):</strong> A system for classifying liver lesions based on imaging features, including those observed in ultrasound. Guidelines are publicly available from the American College of Radiology.</li>
+        <li><strong>Medical Imaging and Diagnostic Ontology (MIDO):</strong> Available on BioPortal, designed to standardize data in medical imaging tasks, including disease classification and imaging modalities.</li>
+      </ul>
+
+      <h3 class="subtitle is-4">Tools for Integrating These Resources</h3>
+      <ul>
+        <li><a href="https://github.com/med-spacy/medspaCy" target="_blank"><strong>medSpaCy</strong></a>: A SpaCy extension for clinical text processing, including pre-trained models for NER in medical contexts.</li>
+        <li><a href="https://github.com/allenai/scispacy" target="_blank"><strong>scispaCy</strong></a>: A SpaCy-based library providing pre-trained models for scientific and clinical text processing.</li>
+        <li><a href="https://www.johnsnowlabs.com/spark-nlp/" target="_blank"><strong>Spark NLP for Healthcare</strong></a>: A library offering pre-trained models for healthcare NLP tasks, including NER and clinical entity resolution.</li>
+      </ul>
+    </div>
+  </div>
+</section>
 
     <section>
         <h2>2. Hybrid Approaches and Pre-trained Models</h2>
@@ -463,35 +520,40 @@
 
 
   <!-- ===== MODEL TABLE SECTION ===== -->
-  <section class="section">
-    <div class="container is-max-desktop">
-      <h2 class="title is-3 has-text-centered">Top Performing Open-Source Biomedical LMs</h2>
-      <div class="content">
-        <table class="table is-hoverable is-fullwidth">
-          <thead>
-            <tr>
-              <th>Model</th>
-              <th>Training Corpus</th>
-              <th>Open-Source?</th>
-              <th>Params (M)</th>
-              <th>PubMedQA Acc. (%)</th>
-              <th>BC5-Disease F1 (%)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>BioBERT</td><td>PubMed + PMC abstracts</td><td class="has-text-success">✔</td><td>110</td><td>60.2</td><td>84.7</td></tr>
-            <tr><td>SciBERT</td><td>Semantic Scholar</td><td class="has-text-success">✔</td><td>110</td><td>57.4</td><td>84.5</td></tr>
-            <tr><td>BlueBERT</td><td>PubMed + MIMIC-III</td><td class="has-text-success">✔</td><td>110</td><td>49.1</td><td>83.0</td></tr>
-            <tr><td>PubMedBERT</td><td>PubMed abstracts/full-text</td><td class="has-text-success">✔</td><td>110</td><td>55.8</td><td>85.6</td></tr>
-            <tr><td>BioGPT-Large</td><td>PubMed abstracts</td><td class="has-text-success">✔</td><td>1500</td><td><strong>78.2</strong></td><td>45.0†</td></tr>
-            <tr><td>BioMedLM</td><td>PubMed + PMC full-text</td><td class="has-text-success">✔</td><td>2700</td><td>74.4</td><td>—</td></tr>
-            <tr><td>PMC&nbsp;LLaMA-13B</td><td>PMC full-text</td><td class="has-text-success">✔</td><td>13000</td><td>76.8</td><td>—</td></tr>
-          </tbody>
-        </table>
-        <p class="is-size-7">† BioGPT numbers are zero-shot; all others are fine-tuned on BLURB. </p>
-      </div>
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Top Performing Open-Source Biomedical LMs</h2>
+    <div class="content">
+      <table class="table is-hoverable is-fullwidth">
+        <thead>
+          <tr>
+            <th>Model</th>
+            <th>Training Corpus</th>
+            <th>Open-Source?</th>
+            <th>Params (M)</th>
+            <th>PubMedQA Acc. (%)</th>
+            <th>BC5-Disease F1 (%)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>BioBERT</td><td>PubMed + PMC abstracts</td><td class="has-text-success">✔</td><td>110</td><td>60.2</td><td>84.7</td></tr>
+          <tr><td>SciBERT</td><td>Semantic Scholar</td><td class="has-text-success">✔</td><td>110</td><td>57.4</td><td>84.5</td></tr>
+          <tr><td>BlueBERT</td><td>PubMed + MIMIC-III</td><td class="has-text-success">✔</td><td>110</td><td>49.1</td><td>83.0</td></tr>
+          <tr><td>PubMedBERT</td><td>PubMed abstracts/full-text</td><td class="has-text-success">✔</td><td>110</td><td>55.8</td><td>85.6</td></tr>
+          <tr><td>BioGPT-Large</td><td>PubMed abstracts</td><td class="has-text-success">✔</td><td>1500</td><td><strong>78.2</strong></td><td>45.0†</td></tr>
+          <tr><td>BioMedLM</td><td>PubMed + PMC full-text</td><td class="has-text-success">✔</td><td>2700</td><td>74.4</td><td>—</td></tr>
+          <tr><td>PMC LLaMA-13B</td><td>PMC full-text</td><td class="has-text-success">✔</td><td>13000</td><td>76.8</td><td>—</td></tr>
+          <tr><td><strong>BioMegatron-345M</strong></td><td>PubMed + clinical notes</td><td class="has-text-success">✔</td><td>345</td><td>—</td><td>—</td></tr>
+          <tr><td><strong>BioMed-RoBERTa-large (355M)</strong></td><td>Biomedical corpus (PubMed, etc.)</td><td class="has-text-success">✔</td><td>355</td><td>—</td><td>—</td></tr>
+          <tr><td><strong>BioGPT-Large (1.5B)</strong></td><td>PubMed abstracts</td><td class="has-text-success">✔</td><td>1500</td><td>—</td><td>—</td></tr>
+          <tr><td><strong>Llama-2-7B (general-domain)</strong></td><td>General domain + PubMed continued pretrain</td><td class="has-text-success">✔</td><td>7000</td><td>—</td><td>—</td></tr>
+        </tbody>
+      </table>
+      <p class="is-size-7">† BioGPT numbers are zero-shot; all others are fine-tuned on BLURB.</p>
     </div>
-  </section>
+  </div>
+</section>
+
   <section>
     <h2>3. Comparison of NLP Methods for Ultrasound Entity Recognition</h2>
     <p>In the process of extracting and tagging entities, locations, and existence from ultrasound reports, various NLP methods can be employed. These methods can be broadly categorized into classic NLP, medical NLP, ontology-based approaches, and transformer-based models. Each method comes with its strengths and applications depending on the complexity and specificity of the task.</p>
@@ -626,6 +688,89 @@
     <h3>Comparison of Tagging Results Across Different Methods</h3>
     <p>The effectiveness of these methods can be compared using evaluation metrics like precision, recall, and F1-score. Some models like BioBERT and MedSpaCy, trained specifically on medical data, tend to outperform general-purpose models like spaCy in extracting medical entities.</p>
 </section>
+          <section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">🔍 Unsupervised Learning for Ultrasound Report Annotation</h2>
+    <div class="content">
+      <p>Unsupervised learning methods are crucial for handling *untagged* ultrasound reports where no labeled data is available. These techniques allow you to detect entities, their types, and handle negation without requiring manual annotations. Here are the most relevant methods:</p>
+
+      <table class="table is-hoverable is-fullwidth">
+        <thead>
+          <tr>
+            <th>Method</th>
+            <th>Core Idea</th>
+            <th>Why It Matters for <em>Untagged</em> Ultrasound Reports</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Unsupervised BioNER Framework (Bian et al., 2023)</strong></td>
+            <td>Treats NER as two unsupervised steps: (1) entity-span discovery using LLM prompts, (2) entity-type assignment by retrieving similar concepts from UMLS and letting the LLM decide. External knowledge is injected only at step 2, so no gold labels are needed.</td>
+            <td>Generates *silver* entity spans and types using only raw text and a UMLS dump—ideal for working with unannotated ultrasound reports.</td>
+          </tr>
+          <tr>
+            <td><strong>GLiNER-biomed (Zero-shot)</strong></td>
+            <td>A BERT-like encoder trained to recognize any entity list you provide. At inference, you pass a list of types (e.g., `["Observation", "Anatomy"]`) and GLiNER returns all spans it believes belong to those types, with no further fine-tuning.</td>
+            <td>Instant, domain-agnostic span detection that can be bootstrapped with entity lists specific to ultrasound (e.g., liver terms, anatomical regions).</td>
+          </tr>
+          <tr>
+            <td><strong>NegBio</strong></td>
+            <td>Uses dependency-pattern rules on universal dependencies to label each candidate finding as *Negated*, *Uncertain*, or *Affirmed*. It outperforms classic NegEx by ~10 F1 points on radiology corpora.</td>
+            <td>Converts spans from the first two methods into the *Exist* value of triplets, without needing any training.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 class="subtitle is-4">Related Approaches</h3>
+      <table class="table is-hoverable is-fullwidth">
+        <thead>
+          <tr>
+            <th>Approach</th>
+            <th>Implementation</th>
+            <th>Pros / Cons</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Dictionary Projection</strong></td>
+            <td>Map each candidate span to the nearest RadLex / ICD-10 / SNOMED term by cosine similarity in the `USLM` embedding space (threshold 0.75).</td>
+            <td>Fast and explainable but struggles with novel jargon.</td>
+          </tr>
+          <tr>
+            <td><strong>Zero-/Few-shot NER Teacher</strong></td>
+            <td>Run GLiNER-biomed or BioGPT-NER in open mode with prompts like “Mark every observation and every anatomical site”. Keep spans whose confidence ≥ 0.9 as silver labels.</td>
+            <td>Leverages LLM prior knowledge, increasing coverage, but may introduce noise.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 class="subtitle is-4">Unsupervised Entity Discovery</h3>
+      <p>The goal of entity discovery is to carve the raw text into candidate span boundaries without assigning types yet. Here's a technique for **entity discovery**:</p>
+      <ul>
+        <li><strong>AutoPhrase / SegPhrase:</strong> High-precision phrase mining driven by PMI (Pointwise Mutual Information) and token statistics.</li>
+        <li><strong>Embedding & Clustering:</strong> Embed every noun-phrase in the corpus using the <code>USLM</code> embedding model, then reduce dimensions with UMAP and cluster with HDBSCAN. Each cluster represents one concept family, like “hypoechoic nodule” or “right hepatic lobe”.</li>
+        <li><strong>Filtering:</strong> Keep clusters whose head words occur in at least 30 documents (or a predefined support threshold).</li>
+      </ul>
+
+      <h4 class="subtitle is-5">Example Proto-Entities</h4>
+      <ul>
+        <li>{hypoechoic nodule, hypoechoic area}</li>
+        <li>{right lobe, right hepatic lobe}</li>
+        <li>{bile duct dilatation}</li>
+      </ul>
+
+      <p>These techniques enable automatic identification of potential entities in ultrasound reports, providing a foundation for downstream tasks like triplet extraction and model fine-tuning.</p>
+
+      <h3 class="subtitle is-4">Key References</h3>
+      <ul>
+        <li>Bian et al., <em>Unsupervised BioNER Framework</em>, arXiv 2023.</li>
+        <li>GLiNER-biomed Zero-shot Tagging, <a href="https://github.com/urchade/GLiNER/blob/main/README_Extended.md?utm_source=chatgpt.com" target="_blank">GitHub</a></li>
+        <li>NegBio Negation/Uncertainty Rules, <em>RadGraph</em></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
           <section>
     <h2>4. Unsupervised Evaluation of Models for Ultrasound Entity Recognition</h2>
     <p>Unsupervised evaluation techniques are essential when ground truth data is limited or unavailable. These methods focus on evaluating the consistency, coherence, and reliability of annotations across various reports. Below, we outline some effective unsupervised evaluation approaches for Named Entity Recognition (NER) in ultrasound reports.</p>
