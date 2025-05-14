@@ -228,6 +228,127 @@
   </section>
 
 
+      <section>
+        <h1>Medical NLP Resources and Tools for Ultrasound Entity Recognition</h1>
+        <p>This page provides a summary of various resources, APIs, and models for Named Entity Recognition (NER) in medical texts, especially focused on ultrasound data. These resources include medical ontologies, NLP models, and specific datasets for efficient and accurate entity extraction from medical reports.</p>
+
+        <h2>1. Core Ontology and Medical Databases</h2>
+        <table border="1" cellpadding="5">
+            <thead>
+                <tr>
+                    <th>Tier</th>
+                    <th>Resource / API</th>
+                    <th>What it gives you (Entity, Location, Synonyms)</th>
+                    <th>How to integrate</th>
+                    <th>Notes & Links</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Core Ontology</strong></td>
+                    <td><strong>UMLS Metathesaurus</strong></td>
+                    <td>Over 4 million CUIs covering disorders, findings, anatomy, devices, procedures. Synonym lists included.</td>
+                    <td>1. Download yearly release <br> 2. Filter by semantic types (e.g., T033 – “Finding”, T023 – “Body part”) <br> 3. Generate JSON gazetteer for entity auto-completion.</td>
+                    <td>“One-stop shop” for comprehensive medical terms. Filter aggressively. <br> <a href="https://www.nlm.nih.gov/research/umls/Snomed/SNOMED_CT_User_Guide_20080731.pdf?utm_source=chatgpt.com">SNOMED CT User Guide</a></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><strong>SNOMED CT</strong></td>
+                    <td>Gold-standard hierarchy for clinical findings with explicit anatomical site relations.</td>
+                    <td>Normalize location phrases like "RUQ", "right liver lobe", "segment VI" using the same concept ID.</td>
+                    <td>Public release via NLM license. <a href="https://www.rsna.org/practice-tools/data-tools-and-standards/radlex-radiology-lexicon?utm_source=chatgpt.com">RadLex</a></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><strong>RadLex</strong></td>
+                    <td>Imaging-specific lexicon (lesions, artifacts, views, ultrasound probes, planes).</td>
+                    <td>Append to UMLS for disambiguating imaging jargon.</td>
+                    <td>Free from RSNA. <a href="https://www.rsna.org/practice-tools/data-tools-and-standards/radlex-radiology-lexicon?utm_source=chatgpt.com">RadLex radiology lexicon</a></td>
+                </tr>
+                <tr>
+                    <td><strong>Light-weight, use-from-Python</strong></td>
+                    <td><strong>QuickUMLS / medSpaCy-QuickUMLS</strong></td>
+                    <td>Fast, fuzzy string-to-UMLS matcher returning [CUI, term, similarity].</td>
+                    <td>Use as post-processor to match LLM proposals to UMLS terms with similarity above a set threshold.</td>
+                    <td>Pip-installable, no license hurdles. <a href="https://github.com/Georgetown-IR-Lab/QuickUMLS?utm_source=chatgpt.com">QuickUMLS GitHub</a></td>
+                </tr>
+                <tr>
+                    <td><strong>Structured location schema (ultrasound-friendly)</strong></td>
+                    <td><strong>FMA (Foundational Model of Anatomy)</strong></td>
+                    <td>Parent/child relations (e.g., "liver → lobe → segment"). Ideal for hierarchical location labels.</td>
+                    <td>Use a three-level subset (organ, lobe/quadrant, sub-region) for location labels.</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><strong>Specialty Add-ons</strong></td>
+                    <td><strong>HPO (phenotypes for obstetric US), LOINC (panels for vascular flow studies)</strong></td>
+                    <td>Use if covering subspecialties like obstetric ultrasound or vascular studies.</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section>
+        <h2>2. Hybrid Approaches and Pre-trained Models</h2>
+        <table border="1" cellpadding="5">
+            <thead>
+                <tr>
+                    <th>Model</th>
+                    <th>Training Corpus</th>
+                    <th>Open-Source?</th>
+                    <th>Params (M)</th>
+                    <th>PubMedQA Acc. (%)</th>
+                    <th>BC5-Disease F1 (%)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>BioBERT</td>
+                    <td>PubMed + PMC abstracts</td>
+                    <td class="has-text-success">✔</td>
+                    <td>110</td>
+                    <td>60.2</td>
+                    <td>84.7</td>
+                </tr>
+                <tr>
+                    <td>SciBERT</td>
+                    <td>Semantic Scholar</td>
+                    <td class="has-text-success">✔</td>
+                    <td>110</td>
+                    <td>57.4</td>
+                    <td>84.5</td>
+                </tr>
+                <tr>
+                    <td>BlueBERT</td>
+                    <td>PubMed + MIMIC-III</td>
+                    <td class="has-text-success">✔</td>
+                    <td>110</td>
+                    <td>49.1</td>
+                    <td>83.0</td>
+                </tr>
+                <tr>
+                    <td>BioGPT-Large</td>
+                    <td>PubMed abstracts</td>
+                    <td class="has-text-success">✔</td>
+                    <td>1500</td>
+                    <td><strong>78.2</strong></td>
+                    <td>45.0†</td>
+                </tr>
+                <tr>
+                    <td>PMC LLaMA-13B</td>
+                    <td>PMC full-text</td>
+                    <td class="has-text-success">✔</td>
+                    <td>13000</td>
+                    <td>76.8</td>
+                    <td>—</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+
 
 
 
