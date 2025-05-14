@@ -153,81 +153,6 @@
       </div>
     </div>
   </section>
-
-  <!-- ===== MODEL TABLE SECTION ===== -->
-  <section class="section">
-    <div class="container is-max-desktop">
-      <h2 class="title is-3 has-text-centered">Top Performing Open-Source Biomedical LMs</h2>
-      <div class="content">
-        <table class="table is-hoverable is-fullwidth">
-          <thead>
-            <tr>
-              <th>Model</th>
-              <th>Training Corpus</th>
-              <th>Open-Source?</th>
-              <th>Params (M)</th>
-              <th>PubMedQA Acc. (%)</th>
-              <th>BC5-Disease F1 (%)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>BioBERT</td><td>PubMed + PMC abstracts</td><td class="has-text-success">✔</td><td>110</td><td>60.2</td><td>84.7</td></tr>
-            <tr><td>SciBERT</td><td>Semantic Scholar</td><td class="has-text-success">✔</td><td>110</td><td>57.4</td><td>84.5</td></tr>
-            <tr><td>BlueBERT</td><td>PubMed + MIMIC-III</td><td class="has-text-success">✔</td><td>110</td><td>49.1</td><td>83.0</td></tr>
-            <tr><td>PubMedBERT</td><td>PubMed abstracts/full-text</td><td class="has-text-success">✔</td><td>110</td><td>55.8</td><td>85.6</td></tr>
-            <tr><td>BioGPT-Large</td><td>PubMed abstracts</td><td class="has-text-success">✔</td><td>1500</td><td><strong>78.2</strong></td><td>45.0†</td></tr>
-            <tr><td>BioMedLM</td><td>PubMed + PMC full-text</td><td class="has-text-success">✔</td><td>2700</td><td>74.4</td><td>—</td></tr>
-            <tr><td>PMC&nbsp;LLaMA-13B</td><td>PMC full-text</td><td class="has-text-success">✔</td><td>13000</td><td>76.8</td><td>—</td></tr>
-          </tbody>
-        </table>
-        <p class="is-size-7">† BioGPT numbers are zero-shot; all others are fine-tuned on BLURB. </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== PLOTS SECTION ===== -->
-  <section class="section has-background-light">
-    <div class="container is-max-desktop">
-      <h2 class="title is-3 has-text-centered">Model Evolution – Size × Performance</h2>
-      <div class="columns is-variable is-8">
-        <div class="column">
-          <figure class="image is-3by2">
-            <img src="static/images/plot_qa.png" alt="Bubble plot of PubMedQA accuracy over publication year" />
-          </figure>
-          <p class="has-text-centered is-size-6 mt-2"><em>Figure 1</em> – PubMedQA accuracy rises with newer &amp; larger models.</p>
-        </div>
-        <div class="column">
-          <figure class="image is-3by2">
-            <img src="static/images/plot_ner.png" alt="Bubble plot of BC5-disease F1 over publication year" />
-          </figure>
-          <p class="has-text-centered is-size-6 mt-2"><em>Figure 2</em> – Disease-NER performance has plateaued since 2019.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- End paper abstract -->
-
-
-  <!-- ===== REFERENCES SECTION ===== -->
-  <section class="section has-background-light">
-    <div class="container is-max-desktop">
-      <h2 class="title is-4">Key References</h2>
-      <div class="content is-size-6">
-        <ul>
-          <li>Lee J. et al. <em>BioBERT: a pre-trained biomedical language representation model</em>. ACL 2019.</li>
-          <li>Luo R. et al. <em>BioGPT: generative pre-trained transformer for biomedical text generation</em>. bioRxiv 2022.</li>
-          <li>Nori H. et al. <em>Toward trustworthy DPO for medical report generation</em>. NAACL 2025.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-
       <section>
         <h1>Medical NLP Resources and Tools for Ultrasound Entity Recognition</h1>
         <p>This page provides a summary of various resources, APIs, and models for Named Entity Recognition (NER) in medical texts, especially focused on ultrasound data. These resources include medical ontologies, NLP models, and specific datasets for efficient and accurate entity extraction from medical reports.</p>
@@ -347,6 +272,80 @@
             </tbody>
         </table>
     </section>
+
+
+  <!-- ===== MODEL TABLE SECTION ===== -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Top Performing Open-Source Biomedical LMs</h2>
+      <div class="content">
+        <table class="table is-hoverable is-fullwidth">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>Training Corpus</th>
+              <th>Open-Source?</th>
+              <th>Params (M)</th>
+              <th>PubMedQA Acc. (%)</th>
+              <th>BC5-Disease F1 (%)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>BioBERT</td><td>PubMed + PMC abstracts</td><td class="has-text-success">✔</td><td>110</td><td>60.2</td><td>84.7</td></tr>
+            <tr><td>SciBERT</td><td>Semantic Scholar</td><td class="has-text-success">✔</td><td>110</td><td>57.4</td><td>84.5</td></tr>
+            <tr><td>BlueBERT</td><td>PubMed + MIMIC-III</td><td class="has-text-success">✔</td><td>110</td><td>49.1</td><td>83.0</td></tr>
+            <tr><td>PubMedBERT</td><td>PubMed abstracts/full-text</td><td class="has-text-success">✔</td><td>110</td><td>55.8</td><td>85.6</td></tr>
+            <tr><td>BioGPT-Large</td><td>PubMed abstracts</td><td class="has-text-success">✔</td><td>1500</td><td><strong>78.2</strong></td><td>45.0†</td></tr>
+            <tr><td>BioMedLM</td><td>PubMed + PMC full-text</td><td class="has-text-success">✔</td><td>2700</td><td>74.4</td><td>—</td></tr>
+            <tr><td>PMC&nbsp;LLaMA-13B</td><td>PMC full-text</td><td class="has-text-success">✔</td><td>13000</td><td>76.8</td><td>—</td></tr>
+          </tbody>
+        </table>
+        <p class="is-size-7">† BioGPT numbers are zero-shot; all others are fine-tuned on BLURB. </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PLOTS SECTION ===== -->
+  <section class="section has-background-light">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Model Evolution – Size × Performance</h2>
+      <div class="columns is-variable is-8">
+        <div class="column">
+          <figure class="image is-3by2">
+            <img src="static/images/plot_qa.png" alt="Bubble plot of PubMedQA accuracy over publication year" />
+          </figure>
+          <p class="has-text-centered is-size-6 mt-2"><em>Figure 1</em> – PubMedQA accuracy rises with newer &amp; larger models.</p>
+        </div>
+        <div class="column">
+          <figure class="image is-3by2">
+            <img src="static/images/plot_ner.png" alt="Bubble plot of BC5-disease F1 over publication year" />
+          </figure>
+          <p class="has-text-centered is-size-6 mt-2"><em>Figure 2</em> – Disease-NER performance has plateaued since 2019.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End paper abstract -->
+
+
+  <!-- ===== REFERENCES SECTION ===== -->
+  <section class="section has-background-light">
+    <div class="container is-max-desktop">
+      <h2 class="title is-4">Key References</h2>
+      <div class="content is-size-6">
+        <ul>
+          <li>Lee J. et al. <em>BioBERT: a pre-trained biomedical language representation model</em>. ACL 2019.</li>
+          <li>Luo R. et al. <em>BioGPT: generative pre-trained transformer for biomedical text generation</em>. bioRxiv 2022.</li>
+          <li>Nori H. et al. <em>Toward trustworthy DPO for medical report generation</em>. NAACL 2025.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
 
 
 
