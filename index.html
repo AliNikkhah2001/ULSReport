@@ -149,12 +149,10 @@
     <div class="hero-body">
       <div class="container has-text-centered">
         <h1 class="title is-2">Ultrasound Report Generation with DPO</h1>
-        <h2 class="subtitle is-4">&amp; Survey of Open-Source Biomedical Language Models</h2>
       </div>
     </div>
   </section>
       <section>
-        <h1>Ultrasound Entity Recognition</h1>
 <section class="section">
   <div class="container is-max-desktop">
     <h2 class="title is-3 has-text-centered">Medical-NER Findings & Triplet Extraction Flow</h2>
@@ -225,86 +223,12 @@
         <li><strong>Optional:</strong> Train relation-aware model (PURE or RadGraph) for position dependencies (later)</li>
       </ul>
 
-      <h3 class="title is-4">Key Takeaways</h3>
-      <ul>
-        <li>Maintain the solid NER/negation backbone.</li>
-        <li>Insert a lightweight entity-translation module that turns each span into a knowledge-rich definition vector.</li>
-        <li>The richer embeddings will improve synonym collapse, zero-shot robustness, and multi-modal adaptability.</li>
-      </ul>
-
-      <p>Let me know which part you'd like to explore next—definition harvesting, CUI mapping, or embedding architecture!</p>
-    </div>
   </div>
 </section>
 <section class="section">
   <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered">1️⃣ Quick Tour of Annotation Options</h2>
-    <div class="content">
-      <p>When building a Named Entity Recognition (NER) system, choosing the right annotation tool is crucial for both efficiency and accuracy. Here are some top options:</p>
-      
-      <table class="table is-hoverable is-fullwidth">
-        <thead>
-          <tr>
-            <th>Tool</th>
-            <th>What it is</th>
-            <th>Stand-out Strengths</th>
-            <th>Things to Know / Limits</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Label Studio (open-source, MIT)</td>
-            <td>A browser-based annotation server for sequence-labeling, span-labeling, bounding-box, audio, etc.</td>
-            <td>
-              <ul>
-                <li>Free community edition</li>
-                <li>Team-friendly: add users, track contributions</li>
-                <li>Rich import/export options (JSON, CSV, COCO, spaCy, BIO)</li>
-                <li>Plug-in system for model pre-annotations</li>
-              </ul>
-            </td>
-            <td>
-              <ul>
-                <li>Requires hosting a Postgres database and web server</li>
-                <li>No built-in active learning; needs custom setup</li>
-              </ul>
-            </td>
-          </tr>
-          <tr>
-            <td>Prodigy (commercial, by spaCy team)</td>
-            <td>A lightweight, scriptable webapp launched via a Python script for NER annotation.</td>
-            <td>
-              <ul>
-                <li>Highly scriptable; every action is a Python one-liner</li>
-                <li>Tight integration with spaCy</li>
-                <li>Active-learning queues to focus on uncertain examples</li>
-              </ul>
-            </td>
-            <td>
-              <ul>
-                <li>Paid license (~$390 per seat, no SaaS)</li>
-                <li>One user per license; requires shared DB for multi-annotator work</li>
-              </ul>
-            </td>
-          </tr>
-          <tr>
-            <td>Plain JSON / Text Editor</td>
-            <td>Use any text editor (VS Code, Sublime, Excel) to manually edit exported NER labels.</td>
-            <td>
-              <ul>
-                <li>Zero setup, 100% free</li>
-                <li>Good for correcting small sets (50–100 mistakes)</li>
-              </ul>
-            </td>
-            <td>
-              <ul>
-                <li>Tedious and error-prone for long sentences</li>
-                <li>No sentence context visible, so harder to verify spans</li>
-              </ul>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <h2 class="title is-3 has-text-centered">Annotation Options</h2>
+    <div class="content">  
 
       <h4 class="subtitle is-5">Recommended Path for Ultrasound Reports</h4>
       <p>The following steps are recommended for effectively annotating ultrasound reports:</p>
@@ -346,7 +270,7 @@
 </section>
 
         <h2>1. Core Ontology and Medical Databases</h2>
-        <table border="1" cellpadding="5">
+        <table class="table is-hoverable is-fullwidth" border="1" cellpadding="5">
             <thead>
                 <tr>
                     <th>Tier</th>
@@ -561,7 +485,7 @@
     <h3>Classic NLP Methods</h3>
     <p>Classic NLP methods focus on general-purpose text processing tasks such as tokenization, part-of-speech tagging, and named entity recognition. These methods can be adapted for medical texts, but they may require additional customization and domain-specific tuning for medical applications.</p>
     
-    <table border="1" cellpadding="5">
+    <table class="table is-hoverable is-fullwidth"  border="1" cellpadding="5">
         <thead>
             <tr>
                 <th>Method</th>
@@ -592,7 +516,7 @@
     <h3>Medical NLP Methods</h3>
     <p>Medical NLP models, like MedSpaCy, are designed to work specifically with medical texts and provide improved performance for tasks like extracting medical entities and understanding medical terminology.</p>
 
-    <table border="1" cellpadding="5">
+    <table class="table is-hoverable is-fullwidth" border="1" cellpadding="5">
         <thead>
             <tr>
                 <th>Method</th>
@@ -616,7 +540,7 @@
     <h3>Ontology-based Methods</h3>
     <p>Ontology-based approaches leverage medical ontologies, such as UMLS, SNOMED CT, and RadLex, to map extracted entities to standardized medical concepts. These methods ensure consistency and precision in medical terminology, which is especially useful when dealing with complex medical texts.</p>
 
-    <table border="1" cellpadding="5">
+    <table class="table is-hoverable is-fullwidth"  border="1" cellpadding="5">
         <thead>
             <tr>
                 <th>Method</th>
@@ -776,7 +700,7 @@
     <p>Unsupervised evaluation techniques are essential when ground truth data is limited or unavailable. These methods focus on evaluating the consistency, coherence, and reliability of annotations across various reports. Below, we outline some effective unsupervised evaluation approaches for Named Entity Recognition (NER) in ultrasound reports.</p>
 
     <h3>Evaluation Approaches</h3>
-    <table border="1" cellpadding="5">
+    <table class="table is-hoverable is-fullwidth" border="1" cellpadding="5">
         <thead>
             <tr>
                 <th>Evaluation Method</th>
