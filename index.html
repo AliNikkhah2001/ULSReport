@@ -156,6 +156,87 @@
       <section>
         <h1>Medical NLP Resources and Tools for Ultrasound Entity Recognition</h1>
         <p>This page provides a summary of various resources, APIs, and models for Named Entity Recognition (NER) in medical texts, especially focused on ultrasound data. These resources include medical ontologies, NLP models, and specific datasets for efficient and accurate entity extraction from medical reports.</p>
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Medical-NER Findings & Triplet Extraction Flow</h2>
+    <div class="content">
+      <h3 class="title is-4">NER Model Performance - BioBERT & Family</h3>
+      <p><strong>BioBERT</strong> (and related models like BlueBERT/ClinicalBERT) outperform vanilla BERT and SciBERT by a margin, due to their pre-training on PubMed and clinical notes. This enables better recognition of domain-specific phrases and negations.</p>
+      <p>Reported F1 improvements (2-6 percentage points over BERT/SciBERT) are primarily from better recall of edge-case entities and fewer false positives.</p>
+
+      <h3 class="title is-4">Implications for Triplet Extraction</h3>
+      <p>A strong NER stage is crucial since any errors in entity recognition or hallucinated entities will propagate to the triplet extraction stage. Using a BioBERT-style model as the backbone, especially fine-tuned on ultrasound reports, will result in cleaner <code>{entity, position, exist}</code> triples.</p>
+
+      <h4 class="subtitle is-5">Negation and Uncertainty Detection</h4>
+      <p>Tools like <strong>NegBio</strong> (which employs dependency-pattern rules) can slot in after NER to determine the "existence" flag, improving the triplet consistency.</p>
+
+      <h4 class="subtitle is-5">Position Phrase Parsing</h4>
+      <p>Ultrasound-specific positions (e.g., "sub-hepatic region", "right adnexa") require curated lexicons or relation parsers like OSCAR/NegBio to map phrases to standard anatomical locations.</p>
+
+      <h3 class="title is-4">Ultrasound-Specific Considerations</h3>
+      <ul>
+        <li>Ultrasound reports are typically shorter and feature more shorthand abbreviations (e.g., "Rt ov nl", "CBD 7 mm"). Thus, domain-adapted tokenization and abbreviation mapping are essential during preprocessing.</li>
+        <li>Many findings come with size measurements, which can either be handled as separate entity tokens (e.g., "cyst") plus an attribute triple (e.g., "size, 3 cm, true") or embedded within the entity span depending on the downstream task.</li>
+      </ul>
+
+      <h3 class="title is-4">End-to-End NER + Triplet Flow</h3>
+      <p>Below is the revised pipeline for processing ultrasound reports:</p>
+      <ol>
+        <li><strong>Pre-process & Tokenize:</strong> Expand abbreviations, keep measurement tokens.</li>
+        <li><strong>NER with BioBERT-family:</strong> Fine-tune BioBERT on manually-annotated ultrasound sentences for entity recognition.</li>
+        <li><strong>Negation Detection:</strong> Use NegBio (or similar rule-based methods) to set the "exist" flag (True/False/Unknown).</li>
+        <li><strong>Position Parsing:</strong> Use RadGraph or rule-based models for anatomical phrase matching (e.g., "left ovary").</li>
+        <li><strong>Triplet Assembly:</strong> Assemble <code>{entity, position, exist}</code> triples.</li>
+        <li><strong>Post-filtering:</strong> Optionally filter inconsistent triples (e.g., remove entities with "exist = False" or empty positions).</li>
+      </ol>
+
+      <h3 class="title is-4">Entity Translation & MedKLIP Integration</h3>
+      <p>Incorporating an <strong>Entity Translation</strong> layer, inspired by MedKLIP’s approach, will enhance the robustness and generalization of the NER system. Here’s how:</p>
+
+      <ol>
+        <li><strong>Canonical Concept Lookup:</strong> Map each raw entity to a canonical concept (e.g., "cyst" → UMLS CUI) using internal lookups or APIs.</li>
+        <li><strong>Definition Sentence Retrieval:</strong> Use knowledge sources (e.g., Wikipedia, Radiopaedia) to fetch definitions for each entity.</li>
+        <li><strong>Text-Encode Definitions:</strong> Encode these definitions with a model like ClinicalBERT to obtain embeddings, which carry richer semantic meaning.</li>
+        <li><strong>Cache Vectors:</strong> Cache the resulting entity vectors for speed and continual updates.</li>
+      </ol>
+
+      <h3 class="title is-4">Final Triplet Assembly</h3>
+      <p>The final output format of each triplet includes:</p>
+      <pre>
+        {
+          "entity": {
+            "text": "cyst",
+            "cui": "C0010692",
+            "embedding": [ … ]
+          },
+          "position": {
+            "label": "left ovary",
+            "prompt_embedding": [ … ]
+          },
+          "exist": "TRUE"
+        }
+      </pre>
+
+      <h3 class="title is-4">Practical Roadmap</h3>
+      <p>The following milestones outline the implementation effort:</p>
+      <ul>
+        <li><strong>MVP:</strong> NER + NegBio + lookup table of ~150 ultrasound entities and definitions (1-2 weeks)</li>
+        <li><strong>Fine-tuning:</strong> Fine-tune BioBERT on ~500 annotated ultrasound sentences (2-3 days GPU)</li>
+        <li><strong>CUI Linker:</strong> Build CUI linker with QuickUMLS + rules (1 week)</li>
+        <li><strong>Optional:</strong> Train relation-aware model (PURE or RadGraph) for position dependencies (later)</li>
+      </ul>
+
+      <h3 class="title is-4">Key Takeaways</h3>
+      <ul>
+        <li>Maintain the solid NER/negation backbone.</li>
+        <li>Insert a lightweight entity-translation module that turns each span into a knowledge-rich definition vector.</li>
+        <li>The richer embeddings will improve synonym collapse, zero-shot robustness, and multi-modal adaptability.</li>
+      </ul>
+
+      <p>Let me know which part you'd like to explore next—definition harvesting, CUI mapping, or embedding architecture!</p>
+    </div>
+  </div>
+</section>
 
         <h2>1. Core Ontology and Medical Databases</h2>
         <table border="1" cellpadding="5">
