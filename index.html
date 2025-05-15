@@ -155,12 +155,8 @@
       <section>
 <section class="section">
   <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered">Medical-NER Findings & Triplet Extraction Flow</h2>
+    <h2 class="title is-3 has-text-centered">Flow</h2>
     <div class="content">
-      <h3 class="title is-4">NER Model Performance - BioBERT & Family</h3>
-      <p><strong>BioBERT</strong> (and related models like BlueBERT/ClinicalBERT) outperform vanilla BERT and SciBERT by a margin, due to their pre-training on PubMed and clinical notes. This enables better recognition of domain-specific phrases and negations.</p>
-      <p>Reported F1 improvements (2-6 percentage points over BERT/SciBERT) are primarily from better recall of edge-case entities and fewer false positives.</p>
-
       <h3 class="title is-4">Implications for Triplet Extraction</h3>
       <p>A strong NER stage is crucial since any errors in entity recognition or hallucinated entities will propagate to the triplet extraction stage. Using a BioBERT-style model as the backbone, especially fine-tuned on ultrasound reports, will result in cleaner <code>{entity, position, exist}</code> triples.</p>
 
@@ -170,11 +166,7 @@
       <h4 class="subtitle is-5">Position Phrase Parsing</h4>
       <p>Ultrasound-specific positions (e.g., "sub-hepatic region", "right adnexa") require curated lexicons or relation parsers like OSCAR/NegBio to map phrases to standard anatomical locations.</p>
 
-      <h3 class="title is-4">Ultrasound-Specific Considerations</h3>
-      <ul>
-        <li>Ultrasound reports are typically shorter and feature more shorthand abbreviations (e.g., "Rt ov nl", "CBD 7 mm"). Thus, domain-adapted tokenization and abbreviation mapping are essential during preprocessing.</li>
-        <li>Many findings come with size measurements, which can either be handled as separate entity tokens (e.g., "cyst") plus an attribute triple (e.g., "size, 3 cm, true") or embedded within the entity span depending on the downstream task.</li>
-      </ul>
+
 
       <h3 class="title is-4">End-to-End NER + Triplet Flow</h3>
       <p>Below is the revised pipeline for processing ultrasound reports:</p>
@@ -184,7 +176,6 @@
         <li><strong>Negation Detection:</strong> Use NegBio (or similar rule-based methods) to set the "exist" flag (True/False/Unknown).</li>
         <li><strong>Position Parsing:</strong> Use RadGraph or rule-based models for anatomical phrase matching (e.g., "left ovary").</li>
         <li><strong>Triplet Assembly:</strong> Assemble <code>{entity, position, exist}</code> triples.</li>
-        <li><strong>Post-filtering:</strong> Optionally filter inconsistent triples (e.g., remove entities with "exist = False" or empty positions).</li>
       </ol>
 
       <h3 class="title is-4">Entity Translation & MedKLIP Integration</h3>
