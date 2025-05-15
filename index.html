@@ -210,10 +210,9 @@
 </section>
 <section class="section">
   <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered">Annotation</h2>
+    <h2 class="title is-3 has-text-centered">Manual Annotation</h2>
     <div class="content">  
 
-      <h4 class="subtitle is-5">Path for Ultrasound Reports</h4>
       <ol>
         <li>Generate weak labels automatically using <code>pseudo_label.py</code>.</li>
         <li>Import the labels into Label Studio using the "Sequence Labeling" template and BIO format.</li>
@@ -238,8 +237,9 @@
     </div>
   </div>
 </section>
-
-        <h2>1. Core Ontology and Medical Databases</h2>
+        <section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Core Ontology and Medical Databases</h2>
         <table class="table is-hoverable is-fullwidth" border="1" cellpadding="5">
             <thead>
                 <tr>
@@ -386,145 +386,34 @@
     </div>
   </div>
 </section>
-
-  <section>
-    <h2>3. Comparison of NLP Methods for Ultrasound Entity Recognition</h2>
-    <p>In the process of extracting and tagging entities, locations, and existence from ultrasound reports, various NLP methods can be employed. These methods can be broadly categorized into classic NLP, medical NLP, ontology-based approaches, and transformer-based models. Each method comes with its strengths and applications depending on the complexity and specificity of the task.</p>
-    
-    <h3>Classic NLP Methods</h3>
-    <p>Classic NLP methods focus on general-purpose text processing tasks such as tokenization, part-of-speech tagging, and named entity recognition. These methods can be adapted for medical texts, but they may require additional customization and domain-specific tuning for medical applications.</p>
-    
-    <table class="table is-hoverable is-fullwidth"  border="1" cellpadding="5">
-        <thead>
-            <tr>
-                <th>Method</th>
-                <th>Description</th>
-                <th>Pros</th>
-                <th>Cons</th>
-                <th>Use Case</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><strong>spaCy (Classic NLP)</strong></td>
-                <td>A robust NLP library for general-purpose tasks like tokenization, POS tagging, and NER.</td>
-                <td>Fast, well-documented, customizable with pre-trained models.</td>
-                <td>May lack domain-specific training, requiring fine-tuning for medical data.</td>
-                <td>General entity recognition from ultrasound reports, but with limited medical accuracy.</td>
-            </tr>
-            <tr>
-                <td><strong>NLTK (Classic NLP)</strong></td>
-                <td>A toolkit for NLP tasks, including tokenization, POS tagging, and entity extraction.</td>
-                <td>Widely used, offers flexibility in preprocessing and experimentation.</td>
-                <td>May not perform as efficiently on large datasets; lacks pre-trained domain models.</td>
-                <td>Entity extraction when domain-specific models are unavailable.</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <h3>Medical NLP Methods</h3>
-    <p>Medical NLP models, like MedSpaCy, are designed to work specifically with medical texts and provide improved performance for tasks like extracting medical entities and understanding medical terminology.</p>
-
-    <table class="table is-hoverable is-fullwidth" border="1" cellpadding="5">
-        <thead>
-            <tr>
-                <th>Method</th>
-                <th>Description</th>
-                <th>Pros</th>
-                <th>Cons</th>
-                <th>Use Case</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><strong>MedSpaCy (Medical NLP)</strong></td>
-                <td>An extension of spaCy optimized for medical entities, offering pre-trained models for clinical NER.</td>
-                <td>Well-suited for medical text, can identify disease, anatomical locations, and clinical terms.</td>
-                <td>Requires specialized setup and dependency management.</td>
-                <td>Clinical reports, including ultrasound, where domain-specific terminology is used.</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <h3>Ontology-based Methods</h3>
-    <p>Ontology-based approaches leverage medical ontologies, such as UMLS, SNOMED CT, and RadLex, to map extracted entities to standardized medical concepts. These methods ensure consistency and precision in medical terminology, which is especially useful when dealing with complex medical texts.</p>
-
-    <table class="table is-hoverable is-fullwidth"  border="1" cellpadding="5">
-
-        <thead>
-            <tr>
-                <th>Method</th>
-                <th>Description</th>
-                <th>Pros</th>
-                <th>Cons</th>
-                <th>Use Case</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><strong>UMLS (Unified Medical Language System)</strong></td>
-                <td>A comprehensive system that links biomedical vocabularies and provides a unified view of medical concepts.</td>
-                <td>Extensive coverage of medical terms and relationships.</td>
-                <td>Large and complex; requires API access and data filtering for specific tasks.</td>
-                <td>Standardizing medical terminology and ensuring consistency across ultrasound data.</td>
-            </tr>
-            <tr>
-                <td><strong>SNOMED CT</strong></td>
-                <td>A global standard for clinical terms and relationships, widely used for medical coding and clinical data exchange.</td>
-                <td>Provides a structured hierarchy for entities and relationships.</td>
-                <td>Can be complex to implement and requires deep integration into systems.</td>
-                <td>Mapping locations and clinical findings in ultrasound reports.</td>
-            </tr>
-            <tr>
-                <td><strong>RadLex</strong></td>
-                <td>A lexicon specifically designed for radiology, offering standardized terms for imaging findings, including ultrasound-specific probes and views.</td>
-                <td>Well-suited for imaging-specific data and terminology.</td>
-                <td>Limited scope compared to broader ontologies like UMLS.</td>
-                <td>Mapping ultrasound imaging terms and findings (e.g., "cyst," "lesion").</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <h3>BERT-based Approaches</h3>
-    <p>Transformer-based models like BERT and its variants (BioBERT, ClinicalBERT) have revolutionized the field of medical NLP by offering pre-trained models that excel at understanding the complex semantics of medical texts, including ultrasound reports.</p>
-
-   <table class="table is-hoverable is-fullwidth" border="1" cellpadding="5">
-        <thead>
-            <tr>
-                <th>Method</th>
-                <th>Description</th>
-                <th>Pros</th>
-                <th>Cons</th>
-                <th>Use Case</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><strong>BioBERT</strong></td>
-                <td>A pre-trained BERT model for biomedical text mining, trained on large biomedical corpora like PubMed.</td>
-                <td>Excellent for biomedical entity recognition and understanding domain-specific language.</td>
-                <td>Requires fine-tuning for specific tasks, computationally intensive.</td>
-                <td>Advanced entity recognition in ultrasound reports and medical diagnoses.</td>
-            </tr>
-            <tr>
-                <td><strong>ClinicalBERT</strong></td>
-                <td>A fine-tuned version of BERT, pre-trained on clinical text data, ideal for clinical NER tasks.</td>
-                <td>Great for clinical documents, including ultrasound reports.</td>
-                <td>May not perform as well on non-clinical data.</td>
-                <td>Extraction of entities like diseases and treatments from ultrasound reports.</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <h3>Saving the Tagged Data</h3>
-    <p>After the entities have been extracted using any of the above methods, the tagged data can be saved in a variety of formats, such as CSV, JSON, or a database, for further analysis, training, or integration into larger workflows.</p>
-
-    <h3>Comparison of Tagging Results Across Different Methods</h3>
-    <p>The effectiveness of these methods can be compared using evaluation metrics like precision, recall, and F1-score. Some models like BioBERT and MedSpaCy, trained specifically on medical data, tend to outperform general-purpose models like spaCy in extracting medical entities.</p>
+  <!-- ===== PLOTS SECTION ===== -->
+  <section class="section has-background-light">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Model Evolution – Size × Performance</h2>
+      <div class="columns is-variable is-8">
+        <div class="column">
+          <figure class="image is-3by2">
+            <img src="static/images/plot_qa.png" alt="Bubble plot of PubMedQA accuracy over publication year" />
+          </figure>
+          <p class="has-text-centered is-size-6 mt-2"><em>Figure 1</em> – PubMedQA accuracy rises with newer &amp; larger models.</p>
+        </div>
+        <div class="column">
+          <figure class="image is-3by2">
+            <img src="static/images/plot_ner.png" alt="Bubble plot of BC5-disease F1 over publication year" />
+          </figure>
+          <p class="has-text-centered is-size-6 mt-2"><em>Figure 2</em> – Disease-NER performance has plateaued since 2019.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
-          <section class="section">
+
   <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered">Unsupervised Learning for Ultrasound Report Annotation</h2>
+    <h2 class="title is-3 has-text-centered">Unsupervised Learning for Annotation</h2>
     <div class="content">
       <p>Unsupervised learning methods are crucial for handling *untagged* ultrasound reports where no labeled data is available. These techniques allow you to detect entities, their types, and handle negation without requiring manual annotations. Here are the most relevant methods:</p>
 
@@ -586,14 +475,6 @@
         <li><strong>Filtering:</strong> Keep clusters whose head words occur in at least 30 documents (or a predefined support threshold).</li>
       </ul>
 
-      <h4 class="subtitle is-5">Example Proto-Entities</h4>
-      <ul>
-        <li>{hypoechoic nodule, hypoechoic area}</li>
-        <li>{right lobe, right hepatic lobe}</li>
-        <li>{bile duct dilatation}</li>
-      </ul>
-
-      <p>These techniques enable automatic identification of potential entities in ultrasound reports, providing a foundation for downstream tasks like triplet extraction and model fine-tuning.</p>
 
       <h3 class="subtitle is-4">Key References</h3>
       <ul>
@@ -604,7 +485,7 @@
     </div>
   </div>
             
-    <h2>Unsupervised Evaluation of Models for Ultrasound Entity Recognition</h2>
+    <h3>Unsupervised Evaluation</h3>
     <p>Unsupervised evaluation techniques are essential when ground truth data is limited or unavailable. These methods focus on evaluating the consistency, coherence, and reliability of annotations across various reports. Below, we outline some effective unsupervised evaluation approaches for Named Entity Recognition (NER) in ultrasound reports.</p>
 
     <h3>Evaluation Approaches</h3>
@@ -648,7 +529,9 @@
 </section>
 
 <section>
-    <h2>Triplet Extraction Using LLMs (e.g., GPT-4o) for Ultrasound Data Labeling</h2>
+    <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Triplet Extraction Using LLMs (e.g., GPT-4o) for Ultrasound Data Labeling</h2>
+
     <p>Using Large Language Models (LLMs) like GPT-4o for triplet extraction in ultrasound reports involves identifying key entities, anatomical locations, and their existence status (e.g., Present, Absent, Uncertain). The feasibility of this approach depends on fine-tuning LLMs on ultrasound-specific data and using a well-defined framework for triplet extraction.</p>
 
     <h3>Feasibility of Using LLMs for Ultrasound Data Labeling</h3>
@@ -692,34 +575,11 @@
     </ul></p>
 
     <p>By iterating on this process and adjusting the model’s prompts and training data, the LLM can accurately and consistently extract triplets from ultrasound reports.</p>
+    </div>
 </section>
 
 
-  <!-- ===== PLOTS SECTION ===== -->
-  <section class="section has-background-light">
-    <div class="container is-max-desktop">
-      <h2 class="title is-3 has-text-centered">Model Evolution – Size × Performance</h2>
-      <div class="columns is-variable is-8">
-        <div class="column">
-          <figure class="image is-3by2">
-            <img src="static/images/plot_qa.png" alt="Bubble plot of PubMedQA accuracy over publication year" />
-          </figure>
-          <p class="has-text-centered is-size-6 mt-2"><em>Figure 1</em> – PubMedQA accuracy rises with newer &amp; larger models.</p>
-        </div>
-        <div class="column">
-          <figure class="image is-3by2">
-            <img src="static/images/plot_ner.png" alt="Bubble plot of BC5-disease F1 over publication year" />
-          </figure>
-          <p class="has-text-centered is-size-6 mt-2"><em>Figure 2</em> – Disease-NER performance has plateaued since 2019.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+
 <!-- End paper abstract -->
 
 
