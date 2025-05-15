@@ -205,24 +205,15 @@
         }
       </pre>
 
-      <h3 class="title is-4">Practical Roadmap</h3>
-      <p>The following milestones outline the implementation effort:</p>
-      <ul>
-        <li><strong>MVP:</strong> NER + NegBio + lookup table of ~150 ultrasound entities and definitions (1-2 weeks)</li>
-        <li><strong>Fine-tuning:</strong> Fine-tune BioBERT on ~500 annotated ultrasound sentences (2-3 days GPU)</li>
-        <li><strong>CUI Linker:</strong> Build CUI linker with QuickUMLS + rules (1 week)</li>
-        <li><strong>Optional:</strong> Train relation-aware model (PURE or RadGraph) for position dependencies (later)</li>
-      </ul>
 
   </div>
 </section>
 <section class="section">
   <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered">Annotation Options</h2>
+    <h2 class="title is-3 has-text-centered">Annotation</h2>
     <div class="content">  
 
-      <h4 class="subtitle is-5">Recommended Path for Ultrasound Reports</h4>
-      <p>The following steps are recommended for effectively annotating ultrasound reports:</p>
+      <h4 class="subtitle is-5">Path for Ultrasound Reports</h4>
       <ol>
         <li>Generate weak labels automatically using <code>pseudo_label.py</code>.</li>
         <li>Import the labels into Label Studio using the "Sequence Labeling" template and BIO format.</li>
@@ -236,26 +227,14 @@
 
 <section class="section">
   <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered">Domain-Adaptive Pretraining (MLM before NER)</h2>
+    <h2 class="title is-3 has-text-centered">Domain-Adaptive Pretraining</h2>
     <div class="content">
       <p>Large-scale NLP systems like BERT use domain-adaptive pretraining (DAPT) to better capture the language of specific domains like ultrasound reports. Here’s the process:</p>
       
       <h3 class="subtitle is-4">DAPT / MLM (Masked Language Modeling)</h3>
       <p>Pre-train BERT using raw ultrasound report text, teaching the model the language of ultrasound (e.g., abbreviations, anatomical terms, measurement patterns) without requiring labels.</p>
       <p><strong>Inputs:</strong> Raw report text.</p>
-      <p><strong>What you train:</strong> A masked-language-model head (same as original BERT). The whole network is optimized (or LoRA adapters are used if VRAM-limited).</p>
       <p><strong>Cost (time/VRAM):</strong> Light. With LoRA and 8-bit precision, a 3070 4GB GPU can complete 3 epochs over ~50k sentences in under 1 hour.</p>
-
-      <h3 class="subtitle is-4">(Optional) TAPT (Task-Adaptive Pretraining)</h3>
-      <p>TAPT involves a second quick pass of pretraining using only the text that will appear in your labelled split. This can improve final NER results if labels are very small.</p>
-      <p><strong>Inputs:</strong> Sentences you plan to label.</p>
-      <p><strong>Cost:</strong> Minimal (minutes).</p>
-
-      <h3 class="subtitle is-4">Fine-tune NER</h3>
-      <p>Fine-tune the BERT model to output BIO tags based on the weak labels, which can be corrected by annotators.</p>
-      <p><strong>Inputs:</strong> Weak + corrected labels (even just 1-2k sentences is enough).</p>
-      <p><strong>What you train:</strong> The classifier head and a subset of encoder weights (LoRA can be used here for efficiency).</p>
-      <p><strong>Cost:</strong> Fast (minutes on a laptop).</p>
     </div>
   </div>
 </section>
@@ -316,10 +295,7 @@
                 </tr>
             </tbody>
         </table>
-    </section>
-<section class="section">
-  <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered">Specialized Resources for Ultrasound Report Annotation</h2>
+          <h2 class="title is-3 has-text-centered">Specialized Resources for Ultrasound Report Annotation</h2>
     <div class="content">
    <table class="table is-hoverable is-fullwidth" border="1" cellpadding="5">
         <thead>
@@ -372,8 +348,7 @@
         <li><a href="https://www.johnsnowlabs.com/spark-nlp/" target="_blank"><strong>Spark NLP for Healthcare</strong></a>: A library offering pre-trained models for healthcare NLP tasks, including NER and clinical entity resolution.</li>
       </ul>
     </div>
-  </div>
-</section>
+    </section>
 
 
 
